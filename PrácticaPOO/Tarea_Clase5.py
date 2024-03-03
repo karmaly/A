@@ -144,16 +144,16 @@ def main():
 
                         patron = re.complie(f".*{nombre}.*")
                         c = 0
-                            listadispobible = sis.verLista()
-                            for p in listadispobible:
-                                if patron.match(p.verNombre()):
-                                    c += 1
-                                    print("Nombre: " + p.verNombre())
-                                    print("Cedula: " + str(p.verCedula()))
-                                    print("Genero: " + p.verGenero())
-                                    print("Servicio: " + p.verServicio())
-                            if c == 0: 
-                                print("No se tiene coincidencias.")
+                        listadispobible = sis.verLista()
+                        for p in listadispobible:
+                            if patron.match(p.verNombre()):
+                                c += 1
+                                print("Nombre: " + p.verNombre())
+                                print("Cedula: " + str(p.verCedula()))
+                                print("Genero: " + p.verGenero())
+                                print("Servicio: " + p.verServicio())
+                        if c == 0: 
+                            print("No se tiene coincidencias.")
                     else: 
                         print("Ingrese una opción válida")
             elif opcion == 3:
