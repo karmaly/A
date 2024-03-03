@@ -54,7 +54,13 @@ class Sistema:
         for p in self.__lista_pacientes:
             if cedula == p.verCedula():
                 return p
-                
+                       
+    def ingresarPaciente(self,pac):
+        if self.verificarPac(pac.verCedula()):
+            return False
+        self.__lista_pacientes.append(pac)
+        return True
+
     def eliminarPaciente(self,cedula):
         if self.verificarPac(cedula) == False:
             return None
@@ -63,22 +69,8 @@ class Sistema:
                 del self.__lista_pacientes[cedula]
                 break
             return True
-        
-        
-        if self.verDatosPaciente(c):
-            pass
-    
-
-
-    def ingresarPaciente(self,pac):
-        if self.verificarPac(pac.verCedula()):
-            return False
-        self.__lista_pacientes.append(pac)
-        return True
-
-    
+            
     def verNumeroPacientes(self):
-        # print("Enel sistema hay: " + str(len(self.__lista_pacientes)) + " pacientes")
         return len(self.__lista_pacientes)
 
 #Creación de función main para iniciar el código:    
