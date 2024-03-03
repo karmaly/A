@@ -106,7 +106,6 @@ def main():
                 pac.asignarServicio(servicio)
                 r = sis.ingresarPaciente(pac)
                 # 3 se almacena en la lista que esta dentro de la clase sistema
-
                 if r == True:
                     print("paciente ingresado")
                 else:
@@ -114,10 +113,18 @@ def main():
 
             elif opcion == 2:
                 # 1 solicito la cedula que quiero buscar
-                c = int(input("Ingrese la cedula a buscar: "))
+                while True:
+                    cedulav = input("Ingrese la cedula a buscar: ")
+                    c = validarNumero(cedula)
+                    if c:
+                        cedula = int(cedulav)
+                        break
+                    else:
+                        print("Debe ser un dato numérico (sin puntos ni letras)")
+                        continue
                 # le pido al sistema que me devuelva en la variable p al paciente que tenga
                 #  la cedula c en la lista
-                p = sis.verDatosPaciente(c)
+                p = sis.verDatosPaciente(cedula)
                 # si encunetro el paciente imprimo los datos
                 if p == None:
                     print("El paciente no se encotró")
