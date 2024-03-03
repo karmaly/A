@@ -121,17 +121,16 @@ def main():
                                 cedulav = input("Ingrese la cedula o parte de ella: ")
                                 c = validarNumero(cedula)
                                 if c:
-                                    cedula = int(cedulav)
                                     break
                                 else:
                                     print("Debe ser un dato numérico (sin puntos ni letras)")
                                     continue
                             # Tomo el valor ingresado como un 
-                            patron = re.complie(f".*{cedula}.*")
+                            patron = re.compile(f".*{cedulav}.*")
                             c = 0
                             listadispobible = sis.verLista()
                             for p in listadispobible:
-                                if patron.match(p.verCedula()):
+                                if patron.match(str(p.verCedula())):
                                     c += 1
                                     print("Nombre: " + p.verNombre())
                                     print("Cedula: " + str(p.verCedula()))
@@ -142,7 +141,7 @@ def main():
                         if busqueda == 1:
                             nombre = input("Ingrese el nombre o parte de él: ")
 
-                        patron = re.complie(f".*{nombre}.*")
+                        patron = re.compile(f".*{nombre}.*")
                         c = 0
                         listadispobible = sis.verLista()
                         for p in listadispobible:
