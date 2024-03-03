@@ -1,6 +1,7 @@
 #Creación de objeto Paciente:
 class Paciente:
     def __init__(self):
+        #Atributos
         self.__nombre = ""
         self.__cedula = int
         self.__genero = ""
@@ -9,38 +10,65 @@ class Paciente:
 #Getters del objeto Paciente
     def verNombre(self):
         return self.__nombre
+    
     def verServicio(self):
         return self.__servicio
+    
     def verGenero(self):
         return self.__genero
+    
     def verCedula(self):
         return self.__cedula
     
 #Setters del objeto Paciente
     def asignarNombre(self,n):
         self.__nombre = n
+    
     def asignarServicio(self,s):
         self.__servicio = s
+    
     def asignarGenero(self,g):
         self.__genero = g
+    
     def asignarCedula(self,c):
         self.__cedula = c
 
+#Creación de objeto Sistema:
 class Sistema:
     def __init__(self):
+        #Atributos
         self.__lista_pacientes = []
-      
-    def eliminarPaciente(self,c):
-        if self.verDatosPaciente(c):
-            pass
-      
-    def verificarPac(self,ced):
+
+#Funciones del objeto paciente
+    def verificarPac(self,cedula):
         encontrado =  False
         for p in self.__lista_pacientes:
-            if ced == p.verCedula():
+            if cedula == p.verCedula():
                 encontrado = True
                 break
         return encontrado
+ 
+    def verDatosPaciente(self,cedula):
+        if self.verificarPac(cedula) == False:
+            return None
+        for p in self.__lista_pacientes:
+            if cedula == p.verCedula():
+                return p
+                
+    def eliminarPaciente(self,cedula):
+        if self.verificarPac(cedula) == False:
+            return None
+        for p in self.__lista_pacientes:
+            if cedula == p.verCedula():
+                del self.__lista_pacientes[cedula]
+                break
+            return True
+        
+        
+        if self.verDatosPaciente(c):
+            pass
+    
+
 
     def ingresarPaciente(self,pac):
         if self.verificarPac(pac.verCedula()):
@@ -48,16 +76,12 @@ class Sistema:
         self.__lista_pacientes.append(pac)
         return True
 
-    def verDatosPaciente(self,c):
-        if self.verificarPac(c) == False:
-            return None
-        for p in self.__lista_pacientes:
-            if c == p.verCedula():
-                return p
+    
     def verNumeroPacientes(self):
         # print("Enel sistema hay: " + str(len(self.__lista_pacientes)) + " pacientes")
         return len(self.__lista_pacientes)
-        
+
+#Creación de función main para iniciar el código:    
 def main():
     sis = Sistema()
     sis1 = Sistema()
