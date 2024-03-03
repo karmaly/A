@@ -1,13 +1,13 @@
-#Creación de objeto Paciente
+# Creación de objeto Paciente
 class Paciente:
     def __init__(self):
-        #Atributos
+        # Atributos
         self.__nombre = ""
         self.__cedula = int
         self.__genero = ""
         self.__servicio = ""
 
-#Getters del objeto Paciente
+# Getters del objeto Paciente
     def verNombre(self):
         return self.__nombre  
     def verServicio(self):
@@ -17,7 +17,7 @@ class Paciente:
     def verCedula(self):
         return self.__cedula
     
-#Setters del objeto Paciente
+# Setters del objeto Paciente
     def asignarNombre(self,n):
         self.__nombre = n   
     def asignarServicio(self,s):
@@ -27,20 +27,13 @@ class Paciente:
     def asignarCedula(self,c):
         self.__cedula = c
 
-#Creación de objeto Sistema
+# Creación de objeto Sistema
 class Sistema:
     def __init__(self):
-        #Atributos
+        # Atributos
         self.__lista_pacientes = []
 
-#Funciones del objeto paciente 
-    def validarNumero(self, numero):
-        try:
-            a = int(numero)
-            return True
-        except ValueError:
-            return False
-    
+# Funciones del objeto paciente 
     def verificarPac(self,cedula):
         encontrado = False
         for p in self.__lista_pacientes:
@@ -73,22 +66,29 @@ class Sistema:
         
     def verNumeroPacientes(self):
         return len(self.__lista_pacientes)
-
-#Creación de función main para iniciar el código:    
+    
+def validarNumero(numero):
+    try:
+        a = int(numero)
+        return True
+    except ValueError:
+        return False
+    
+# Creación de función main para iniciar el código:    
 def main():
     sis = Sistema()
     while True:
-        opcionv = input("Ingrese para:\n0. Para volver al menu \n1. Ingresar nuevo paciente \n2. Ver paciente \n3. Ver cantidad de pacientes \n>> ")
+        opcionv = input("\nIngrese para:\n0. Para volver al menu \n1. Ingresar nuevo paciente \n2. Ver paciente \n3. Ver cantidad de pacientes \n>> ")
         a = validarNumero(opcionv)
         if a:
             opcion = int(opcionv)
             if opcion == 1:
-                print("A continuacion se solicitaran los seguientes datos:\n")
-                # 1 Se solicitaran los datos
+                print("\nA continuacion se solicitaran los seguientes datos:\n")
+                # 1. Se solicitaran los datos
                 nombre = input("Ingrese el nombre: ")
                 while True:
                     cedulav = input("Ingrese la cedula: ")
-                    c = validarNumero(cedula)
+                    c = validarNumero(cedulav)
                     if c:
                         cedula = int(cedulav)
                         break
@@ -97,22 +97,22 @@ def main():
                         continue
                 genero = input("Ingrese el genero: ")
                 servicio = input("Ingrese el servicio: ")
-                # 2 se crea un objeto Paciente
+                # 2. Se crea un objeto Paciente
                 pac = Paciente()
-                # como es paciente esta vacio debo ingresarle la informacion
+                # Como es paciente esta vacio debo ingresarle la informacion
                 pac.asignarNombre(nombre)
                 pac.asignarCedula(cedula)
                 pac.asignarGenero(genero)
                 pac.asignarServicio(servicio)
                 r = sis.ingresarPaciente(pac)
-                # 3 se almacena en la lista que esta dentro de la clase sistema
+                # 3 Se almacena en la lista que esta dentro de la clase sistema
                 if r == True:
-                    print("paciente ingresado")
+                    print("Paciente ingresado")
                 else:
-                    print("paciente ya existe en el sistema")
+                    print("Paciente ya existe en el sistema")
 
             elif opcion == 2:
-                # 1 solicito la cedula que quiero buscar
+                # 1. Solicito la cedula que quiero buscar
                 while True:
                     cedulav = input("Ingrese la cedula a buscar: ")
                     c = validarNumero(cedula)
@@ -122,10 +122,10 @@ def main():
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")
                         continue
-                # le pido al sistema que me devuelva en la variable p al paciente que tenga
-                #  la cedula c en la lista
+                # Le pido al sistema que me devuelva en la variable p al paciente que tenga
+                # la cedula en la lista
                 p = sis.verDatosPaciente(cedula)
-                # si encunetro el paciente imprimo los datos
+                # Si encunetro el paciente imprimo los datos
                 if p == None:
                     print("El paciente no se encotró")
                 else:
@@ -135,7 +135,7 @@ def main():
                     print("Servicio: " + p.verServicio())
             
             elif opcion == 3:
-                print(f"la cantidad de pacientes en el sistema es: {sis.verNumeroPacientes()}")
+                print(f"La cantidad de pacientes en el sistema es: {sis.verNumeroPacientes()}")
                         
             elif opcion != 0:
                 continue
