@@ -140,7 +140,8 @@ def main():
             elif opcion != 0:
                 continue
         else:
-            break
+            print("Seleccione una opción valida")
+            continue
 
 if __name__ == '__main__':
     main()
