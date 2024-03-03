@@ -42,13 +42,6 @@ class Sistema:
                 encontrado = True
                 break
         return encontrado
- 
-    #def verDatosPaciente(self,cedula):
-    #    if self.verificarPac(cedula) == False:
-    #        return None
-    #    for p in self.__lista_pacientes:
-    #        if cedula == p.verCedula():
-    #            return p
                        
     def ingresarPaciente(self,pac):
         if self.verificarPac(pac.verCedula()):
@@ -141,8 +134,8 @@ def main():
                                     print("Cedula: " + str(p.verCedula()))
                                     print("Genero: " + p.verGenero())
                                     print("Servicio: " + p.verServicio())
-                                else: 
-                                    print("No se tiene coincidencias.")
+                            if c == 0: 
+                                print("No se tiene coincidencias.")
                         if busqueda == 1:
                             nombre = input("Ingrese el nombre o parte de él: ")
                         # Le pido al sistema que me devuelva en la variable p al paciente que tenga
