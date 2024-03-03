@@ -150,7 +150,7 @@ def main():
                                 print("No se tiene coincidencias.")
                         # Se hace el mismo análisis de la anterior busqueda, pero al ser "str" no requiero validar que sea
                         # un dato numérico. Pero procedo con el método re.compile() de igual manera.
-                        if busqueda == 1:
+                        elif busqueda == 1:
                             nombre = input("Ingrese el nombre o parte de él: ")
                             patron = re.compile(f".*{nombre}.*")
                             c = 0
@@ -164,7 +164,7 @@ def main():
                                     print("Servicio: " + p.verServicio())
                             if c == 0: 
                                 print("No se tiene coincidencias.")
-                        if busqueda == 2:
+                        elif busqueda == 2:
                             break
                     else: 
                         print("Ingrese una opción válida")
