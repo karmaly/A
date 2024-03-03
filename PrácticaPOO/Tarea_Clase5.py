@@ -1,10 +1,12 @@
+#Creación de objeto Paciente:
 class Paciente:
     def __init__(self):
-        self.__nombre = "juanita"
+        self.__nombre = ""
         self.__cedula = int
         self.__genero = ""
         self.__servicio = ""
-        
+
+#Getters del objeto Paciente
     def verNombre(self):
         return self.__nombre
     def verServicio(self):
@@ -14,6 +16,7 @@ class Paciente:
     def verCedula(self):
         return self.__cedula
     
+#Setters del objeto Paciente
     def asignarNombre(self,n):
         self.__nombre = n
     def asignarServicio(self,s):
