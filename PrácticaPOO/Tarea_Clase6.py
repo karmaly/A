@@ -66,7 +66,23 @@ class sistemaV:
             return True
         else:
             return False
-    
+    def tipo(self):
+        while True:
+            tipov = input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
+            t = validarNumero(tipov)
+            if t:
+                if tipov == 1:
+                    tipo = "Felino"
+                    return tipo
+                elif tipov == 2:
+                    tipo = "Canino"
+                    return tipo
+                else:
+                    print("Elija una de las dos opciones")
+                    continue
+            else: 
+                print("Ingrese 1 o 2 como indican las opciones disponibles")
+                continue
     def ingresarMascota(self,tipo,historia,mas):
         if tipo == "Felino":
             self.verDicFel()[historia] = mas
@@ -193,27 +209,41 @@ def main():
                 lista_med = []
 
                 for i in range(0,nm):
-                    nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
-                    dosis =int(input("Ingrese la dosis: "))
+                    while True:
+                        nombre_med = input("Ingrese el nombre del medicamento: ")
+                        if nombre_med in lista_med[i.verNombre()]:
+                            print("El medicamento ya se encuenta agregado")
+                            continue
+                        else:
+                            break
+                    dosis = int(input("Ingrese la dosis: "))
                     medicamento = Medicamento()
-                    medicamento.asignarNombre(nombre_medicamentos)
+                    medicamento.asignarNombre(nombre_med)
                     medicamento.asignarDosis(dosis)
                     lista_med.append(medicamento)
 
-                mas= Mascota()
+                mas = Mascota()
                 mas.asignarNombre(nombre)
                 mas.asignarHistoria(historia)
                 mas.asignarPeso(peso)
                 mas.asignarTipo(tipo)
                 mas.asignarFecha(fecha)
                 mas.asignarLista_Medicamentos(lista_med)
-                servicio_hospitalario.ingresarMascota(mas)
+                servicio_hospitalario.ingresarMascota(tipo,historia,mas)
 
             else:
                 print("Ya existe la mascota con el numero de histoira clinica")
 
         elif menu==2: # Ver fecha de ingreso
-            q = int(input("Ingrese la historia clínica de la mascota: "))
+            while True:
+                    bushc = input("Ingrese la historia clínica de la mascota: ")
+                    bus = validarNumero(bushc)
+                    if bus:
+                        busqhc = int(bushc)
+                        break
+                    else:
+                        print("Debe ser un dato numérico (sin puntos ni letras)")   
+            
             fecha = servicio_hospitalario.verFechaIngreso(q)
             # if servicio_hospitalario.verificarExiste == True
             if fecha != None:
