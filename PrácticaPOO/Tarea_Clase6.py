@@ -259,24 +259,29 @@ def main():
             if servicio_hospitalario.verificarExiste(historia):
                 tipo = tipe()
                 for i in servicio_hospitalario.verMedicamento(busqhc,tipo):
-                    print(i.sverNombre())
+                    print(i.verNombre())
                     print(i.verDosis())
             else:
                 print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
         elif menu == 5: # Eliminar mascota
-            q = int(input("Ingrese la historia clínica de la mascota: "))
-            resultado_operacion = servicio_hospitalario.eliminarMascota(q) 
-            if resultado_operacion == True:
-                print("Mascota eliminada del sistema con exito")
+            while True:
+                    bushc = input("Ingrese la historia clínica de la mascota: ")
+                    bus = validarNumero(bushc)
+                    if bus:
+                        busqhc = int(bushc)
+                        break
+                    else:
+                        print("Debe ser un dato numérico (sin puntos ni letras)")   
+            if servicio_hospitalario.verificarExiste(historia):
+                tipo = tipe()
+                print(servicio_hospitalario.eliminarMascota(busqhc,tipo))
             else:
-                print("No se ha podido eliminar la mascota")
-        
+                print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
         elif menu==6:
             print("Usted ha salido del sistema de servicio de hospitalización...")
             break
-        
-        else:
-            print("Usted ingresó una opción no válida, intentelo nuevamente...")
+    else:
+        print("Usted ingresó una opción no válida, intentelo nuevamente...")
 
 if __name__=='__main__':
     main()
