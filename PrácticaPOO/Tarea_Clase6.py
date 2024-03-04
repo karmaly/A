@@ -17,11 +17,12 @@ def verificar_formato_fecha(fecha_str):
         return False, None
     
 # Función para validar tipo  
+
 def tipe():
     while True:
-        tipov = input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
-        t = validarNumero(tipov)
-        if t:
+        tipov = input("Ingrese el tipo de mascota (1. Felino o 2. Canino): ")
+        if validarNumero(tipov):  # Verifica si la entrada es un número
+            tipov = int(tipov)  # Convierte la entrada a entero
             if tipov == 1:
                 tipo = "Felino"
                 return tipo
@@ -30,10 +31,8 @@ def tipe():
                 return tipo
             else:
                 print("Elija una de las dos opciones")
-                continue
         else: 
             print("Ingrese 1 o 2 como indican las opciones disponibles")
-            continue
     
 # Creación class Medicamento
 class Medicamento:

@@ -1,4 +1,10 @@
 print("Ingrese para:\n0. Para volver al menu \n1. Ingresar nuevo paciente \n2. Ver paciente \n3. Ver cantidad de pacientes \n>> ")
+def validarNumero(numero):
+    try:
+        a = int(numero)
+        return True
+    except ValueError:
+        return False
 def tipo():
     while True:
         tipov = input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
@@ -6,10 +12,10 @@ def tipo():
         if t:
             if tipov == 1:
                 tipo = "Felino"
-                return tipo
+            return tipo
             elif tipov == 2:
                 tipo = "Canino"
-                return tipo
+            return tipo
             else:
                 print("Elija una de las dos opciones")
                 continue
