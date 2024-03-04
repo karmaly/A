@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 # Función para validar entero
 def validarNumero(numero):
