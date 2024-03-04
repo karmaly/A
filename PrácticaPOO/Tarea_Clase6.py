@@ -1,3 +1,4 @@
+#Importo función que permite condicionar el estilo de fecha ingresado
 from datetime import datetime
 
 # Función para validar entero
@@ -17,7 +18,6 @@ def verificar_formato_fecha(fecha_str):
         return False, None
     
 # Función para validar tipo  
-
 def tipe():
     while True:
         tipov = input("Ingrese el tipo de mascota (1. Felino o 2. Canino): ")
@@ -39,11 +39,13 @@ class Medicamento:
     def __init__(self):
         self.__nombre = "" 
         self.__dosis = int
+
 # Getters class Medicamento
     def verNombre(self):
         return self.__nombre 
     def verDosis(self):
         return self.__dosis 
+    
 # Setters class Medicamento
     def asignarNombre(self,med):
         self.__nombre = med 
@@ -59,6 +61,7 @@ class Mascota:
         self.__peso=" "
         self.__fecha_ingreso=" "
         self.__lista_medicamentos=[]
+
 # Getters class Mascota  
     def verNombre(self):
         return self.__nombre
@@ -72,6 +75,7 @@ class Mascota:
         return self.__fecha_ingreso
     def verLista_Medicamentos(self):
         return self.__lista_medicamentos 
+    
 # Setters class Mascota
     def asignarNombre(self,n):
         self.__nombre=n
@@ -105,6 +109,7 @@ class sistemaV:
             return True
         else:
             return False
+        
     def ingresarMascota(self,tipo,historia,mas):
         if tipo == "Felino":
             self.verDicFel()[historia] = mas
@@ -115,10 +120,9 @@ class sistemaV:
     
     def verFechaIngreso(self,historia,tipo):
         if tipo == "Felino":
-            return self.verDicFel(self)[historia].verFecha()
+            return self.verDicFel()[historia].verFecha()
         else:
             return self.verDicCan()[historia].verFecha()
-
 
     def verMedicamento(self,historia,tipo):
         if tipo == "Felino":
@@ -126,7 +130,6 @@ class sistemaV:
         else:
             return self.verDicCan()[historia].verLista_Medicamentos()
 
-    
     def eliminarMascota(self,historia,tipo):
         if tipo == "Felino":
             del self.verDicFel(self)[historia]
@@ -137,19 +140,21 @@ class sistemaV:
     
     def verNumeroMascotas(self):
         return len(self.__lista_felinos) + len(self.__lista_caninos)
-    
+
+#Función que posee el menú
 def main():
     servicio_hospitalario = sistemaV()
     while True:
         while True:
-            menuv = (input('''\nIngrese una opción: 
-                        \n1- Ingresar una mascota
-                        \n2- Ver fecha de ingreso 
-                        \n3- Ver número de mascotas en el servicio 
-                        \n4- Ver medicamentos que se están administrando
-                        \n5- Eliminar mascota 
-                        \n6- Salir 
-                        \nUsted ingresó la opción: ''' ))
+            menuv = (input('''\nIngrese una opción\n: 
+                        1- Ingresar una mascota
+                        2- Ver fecha de ingreso
+                        3- Ver número de mascotas en el servicio
+                        4- Ver medicamentos que se están administrando
+                        5- Eliminar mascota 
+                        6- Salir 
+                    
+                        >>: ''' ))
             opc = validarNumero(menuv)
             if opc:
                 menu = int(menuv)
@@ -239,7 +244,7 @@ def main():
                         print("Debe ser un dato numérico (sin puntos ni letras)")   
             if servicio_hospitalario.verificarExiste(busqhc):
                 tipo = tipe()
-                print(servicio_hospitalario.verFechaIngreso(busqhc,tipo))
+                print("La fecha de ingreso es:" + servicio_hospitalario.verFechaIngreso(busqhc,tipo))
             else:
                 print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
             
