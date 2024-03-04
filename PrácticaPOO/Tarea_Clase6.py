@@ -52,6 +52,11 @@ class sistemaV:
     def __init__(self):
         self.__lista_felinos = {}
         self.__lista_caninos = {}
+
+    def verDicFel(self):
+        return self.__lista_felinos
+    def verDicCan(self):
+        return self.__lista_caninos
     
     def verificarExiste(self, historia):
         if historia in self.__lista_felinos or self.__lista_caninos:
@@ -62,19 +67,24 @@ class sistemaV:
     def verNumeroMascotas(self):
         return len(self.__lista_felinos) + len(self.__lista_caninos)
     
-    def ingresarMascota(self,mascota):
-        if mascota == "Felino":
-            self.__lista_felinos.append(mascota)
+    def ingresarMascota(self,tipo,historia,mas):
+        if tipo == "Felino" 
+            self.verDicFel(self)[historia] = mas
+            return True 
+        else:
+            self.verDicCan(self)[historia] = mas
+                
         else:
             self.__lista_caninos.append(mascota)
             
-    def verFechaIngreso(self,historia):
+    def verFechaIngreso(self,historia,tipo):
         #busco la mascota y devuelvo el atributo solicitado
-        if self.verificarExiste(historia):
-            for clave in self.__lista_felinos:
-                
-
-            return None
+        if self.verificarExiste(historia,tipo):
+            if tipo == verTipo():
+                for historia = self.__lista_felinos.get(historia):
+                    return
+            else:
+                for historia in self.__lista_caninos:
 
     def verMedicamento(self,historia):
         #busco la mascota y devuelvo el atributo solicitado
@@ -89,6 +99,12 @@ class sistemaV:
                 self.__lista_mascotas.remove(masc)  #opcion con el pop
                 return True  #eliminado con exito
         return False 
+
+nombre = self.verDicFel(self)[historia].verTipo()
+            self.__lista_felinos.append(mascota)
+
+
+
 
 def main():
     servicio_hospitalario = sistemaV()
