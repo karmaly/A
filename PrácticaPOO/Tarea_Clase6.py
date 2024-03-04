@@ -204,7 +204,7 @@ def main():
                 lista_med = []
                 for i in range(0,nm):
                     while True:
-                        nombre_med = (input("Ingrese el nombre del medicamento: ")).upper
+                        nombre_med = input("Ingrese el nombre del medicamento: ").upper()
                         if nombre_med in listanombre_med:
                             print("El medicamento ya se encuenta agregado")
                             continue
@@ -237,7 +237,7 @@ def main():
                         break
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")   
-            if servicio_hospitalario.verificarExiste(historia):
+            if servicio_hospitalario.verificarExiste(busqhc):
                 tipo = tipe()
                 print(servicio_hospitalario.verFechaIngreso(busqhc,tipo))
             else:
@@ -256,8 +256,9 @@ def main():
                         break
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")   
-            if servicio_hospitalario.verificarExiste(historia):
+            if servicio_hospitalario.verificarExiste(busqhc):
                 tipo = tipe()
+                print(f"Los medicamentos de la mascota con historia {busqhc} son:")
                 for i in servicio_hospitalario.verMedicamento(busqhc,tipo):
                     print(i.verNombre())
                     print(i.verDosis())
@@ -272,7 +273,7 @@ def main():
                         break
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")   
-            if servicio_hospitalario.verificarExiste(historia):
+            if servicio_hospitalario.verificarExiste(busqhc):
                 tipo = tipe()
                 print(servicio_hospitalario.eliminarMascota(busqhc,tipo))
             else:
@@ -280,8 +281,8 @@ def main():
         elif menu==6:
             print("Usted ha salido del sistema de servicio de hospitalización...")
             break
-    else:
-        print("Usted ingresó una opción no válida, intentelo nuevamente...")
+        else:
+            print("Usted ingresó una opción no válida, intentelo nuevamente...")
 
 if __name__=='__main__':
     main()
