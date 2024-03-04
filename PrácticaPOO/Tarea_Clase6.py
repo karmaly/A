@@ -68,23 +68,18 @@ class sistemaV:
         return len(self.__lista_felinos) + len(self.__lista_caninos)
     
     def ingresarMascota(self,tipo,historia,mas):
-        if tipo == "Felino" 
+        if tipo == "Felino":
             self.verDicFel(self)[historia] = mas
             return True 
         else:
             self.verDicCan(self)[historia] = mas
-                
-        else:
-            self.__lista_caninos.append(mascota)
-            
+
     def verFechaIngreso(self,historia,tipo):
-        #busco la mascota y devuelvo el atributo solicitado
-        if self.verificarExiste(historia,tipo):
-            if tipo == verTipo():
-                for historia = self.__lista_felinos.get(historia):
-                    return
-            else:
-                for historia in self.__lista_caninos:
+        if self.verificarExiste(self, historia):
+            if tipo == "Felino":
+                self.verDicFel(self)[historia].verFecha()
+        else:
+            self.verDicCan(self)[historia].verFecha()
 
     def verMedicamento(self,historia):
         #busco la mascota y devuelvo el atributo solicitado
@@ -100,8 +95,6 @@ class sistemaV:
                 return True  #eliminado con exito
         return False 
 
-nombre = self.verDicFel(self)[historia].verTipo()
-            self.__lista_felinos.append(mascota)
 
 
 
