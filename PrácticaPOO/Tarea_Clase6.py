@@ -1,28 +1,27 @@
 class Medicamento:
     def __init__(self):
         self.__nombre = "" 
-        self.__dosis = 0 
-    
+        self.__dosis = int
+#Getters class Medicamento
     def verNombre(self):
         return self.__nombre 
     def verDosis(self):
         return self.__dosis 
-    
+#Setters class Medicamento
     def asignarNombre(self,med):
         self.__nombre = med 
     def asignarDosis(self,med):
         self.__dosis = med 
         
 class Mascota:
-    
     def __init__(self):
         self.__nombre= " "
-        self.__historia=0
+        self.__historia = int
         self.__tipo=" "
         self.__peso=" "
         self.__fecha_ingreso=" "
         self.__lista_medicamentos=[]
-        
+#Getters class Medicamento  
     def verNombre(self):
         return self.__nombre
     def verHistoria(self):
@@ -35,7 +34,7 @@ class Mascota:
         return self.__fecha_ingreso
     def verLista_Medicamentos(self):
         return self.__lista_medicamentos 
-            
+#Setters class Medicamento
     def asignarNombre(self,n):
         self.__nombre=n
     def asignarHistoria(self,nh):
@@ -51,7 +50,8 @@ class Mascota:
     
 class sistemaV:
     def __init__(self):
-        self.__lista_mascotas = []
+        self.__lista_felinos = {}
+        self.__lista_caninos = {}
     
     def verificarExiste(self,historia):
         for m in self.__lista_mascotas:
