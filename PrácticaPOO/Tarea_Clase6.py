@@ -1,3 +1,4 @@
+import datetime
 class Medicamento:
     def __init__(self):
         self.__nombre = "" 
@@ -107,7 +108,14 @@ def validarNumero(numero):
         return True
     except ValueError:
         return False
-
+    
+def verificar_formato_fecha(fecha_str):
+    try:
+        fecha = datetime.strptime(fecha_str, '%d/%m/%Y')
+        return True, fecha
+    except ValueError:
+        return False, None
+    
 def main():
     servicio_hospitalario = sistemaV()
     while True:
@@ -139,21 +147,23 @@ def main():
                     break
                 else:
                    print("Debe ser un dato numérico (sin puntos ni letras)") 
-            while True:
-                tipov=input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
-                t = validarNumero(tipov)
-                if t:
-                    if tipov == 1:
-                        tipo = "Felino"
-                        break
-                    elif tipov == 2:
-                        tipo ="Canino"
-                        break
-                    else:
-                        print("Elija una de las dos opciones")
-                else: 
-                    print("Ingrese 1 o 2 como indican las opciones disponibles")
             if servicio_hospitalario.verificarExiste(historia) == False:
+                while True:
+                    tipov = input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
+                    t = validarNumero(tipov)
+                    if t:
+                        if tipov == 1:
+                            tipo = "Felino"
+                            break
+                        elif tipov == 2:
+                            tipo = "Canino"
+                            break
+                        else:
+                            print("Elija una de las dos opciones")
+                            continue
+                    else: 
+                        print("Ingrese 1 o 2 como indican las opciones disponibles")
+                        continue
                 nombre=input("Ingrese el nombre de la mascota: ")
                 while True:
                     pesov=input("Ingrese el peso de la mascota: ")
@@ -164,15 +174,23 @@ def main():
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")   
                 while True:
-                    nmv=int(input("Ingrese cantidad de medicamentos: "))
+                    nmv=input("Ingrese cantidad de medicamentos: ")
                     nu = validarNumero(nmv)
                     if nu:
                         nm = int(nmv)
                         break
                     else:
-                        print("Debe ser un dato numérico (sin puntos ni letras)")   
-                fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
-                lista_med=[]
+                        print("Debe ser un dato numérico (sin puntos ni letras)")
+                while True: 
+                    fecha_in = input("Por favor, ingresa la fecha en formato dd/mm/aaaa: ")
+                    es_formato_valido, fecha = verificar_formato_fecha(fecha_in)
+                    if es_formato_valido:
+                        fecha = fecha_in
+                        break
+                    else:
+                        print("La fecha ingresada no tiene el formato dd/mm/aaaa.")
+                        continue
+                lista_med = []
 
                 for i in range(0,nm):
                     nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
