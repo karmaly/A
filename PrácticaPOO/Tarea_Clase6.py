@@ -114,33 +114,26 @@ class sistemaV:
         return print("Mascota tipo canino ingresada")
     
     def verFechaIngreso(self,historia,tipo):
-        if self.verificarExiste(historia):
-            if tipo == "Felino":
-                return self.verDicFel(self)[historia].verFecha()
-            else:
-                return self.verDicCan()[historia].verFecha()
+        if tipo == "Felino":
+            return self.verDicFel(self)[historia].verFecha()
         else:
-             return print(f"No se halla la historia {historia} en el sistema")
+            return self.verDicCan()[historia].verFecha()
+
 
     def verMedicamento(self,historia,tipo):
-        if self.verificarExiste(historia):
-            if tipo == "Felino":
-                return self.verDicFel()[historia].verLista_Medicamentos()
-            else:
-                return self.verDicCan()[historia].verLista_Medicamentos()
+        if tipo == "Felino":
+            return self.verDicFel()[historia].verLista_Medicamentos()
         else:
-            return print(f"No se halla la historia {historia} en el sistema")
+            return self.verDicCan()[historia].verLista_Medicamentos()
+
     
     def eliminarMascota(self,historia,tipo):
-        if self.verificarExiste(historia):
-            if tipo == "Felino":
-                del self.verDicFel(self)[historia]
-                return print(f"La mascota con {historia} fue eliminada")
-            else:
-                del self.verDicCan(self)[historia]
-                return print(f"La mascota con {historia} fue eliminada")
+        if tipo == "Felino":
+            del self.verDicFel(self)[historia]
+            return print(f"La mascota con {historia} fue eliminada")
         else:
-            return print(f"No se halla la historia {historia} en el sistema")
+            del self.verDicCan(self)[historia]
+            return print(f"La mascota con {historia} fue eliminada")
     
     def verNumeroMascotas(self):
         return len(self.__lista_felinos) + len(self.__lista_caninos)
@@ -178,8 +171,6 @@ def main():
                    print("Debe ser un dato numérico (sin puntos ni letras)")
                    continue
             if servicio_hospitalario.verificarExiste(historia) == False:
-                mas = Mascota()
-                medic = Medicamento()
                 tipo = tipe()
                 nombre=input("Ingrese el nombre de la mascota: ")
                 while True:
@@ -209,22 +200,24 @@ def main():
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")
                         continue
+                listanombre_med = []
                 lista_med = []
                 for i in range(0,nm):
                     while True:
-                        nombre_med = input("Ingrese el nombre del medicamento: ")
-                        #if nombre_med in mas.verLista_Medicamentos()medic:
-                        for i in mas.verLista_Medicamentos():
-                            if nombre_med == i.verNombre():
-                                print("El medicamento ya se encuenta agregado")
-                                continue
+                        nombre_med = (input("Ingrese el nombre del medicamento: ")).upper
+                        if nombre_med in listanombre_med:
+                            print("El medicamento ya se encuenta agregado")
+                            continue
                         else:
+                            listanombre_med.append(nombre_med)
+                            dosis = int(input("Ingrese la dosis: "))
+                            medic = Medicamento()
+                            medic.asignarNombre(nombre_med)
+                            medic.asignarDosis(dosis)
+                            lista_med.append(medic)
                             break
-                    dosis = int(input("Ingrese la dosis: "))
-                    medicamento.asignarNombre(nombre_med)
-                    medicamento.asignarDosis(dosis)
-                    lista_med.append(medicamento)
 
+                mas = Mascota()
                 mas.asignarNombre(nombre)
                 mas.asignarHistoria(historia)
                 mas.asignarPeso(peso)
@@ -232,7 +225,6 @@ def main():
                 mas.asignarFecha(fecha)
                 mas.asignarLista_Medicamentos(lista_med)
                 servicio_hospitalario.ingresarMascota(tipo,historia,mas)
-
             else:
                 print("Ya existe la mascota con el numero de histoira clinica")
 
@@ -245,11 +237,9 @@ def main():
                         break
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")   
-            tipo = tipo()
-            fecha = servicio_hospitalario.verFechaIngreso(busqhc,tipo)
-            # if servicio_hospitalario.verificarExiste == True
-            if fecha != None:
-                print("La fecha de ingreso de la mascota es: " + fecha)
+            if servicio_hospitalario.verificarExiste(historia):
+                tipo = tipe()
+                print(servicio_hospitalario.verFechaIngreso(busqhc,tipo))
             else:
                 print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
             
@@ -258,16 +248,21 @@ def main():
             print("El número de pacientes en el sistema es: " + str(numero))
 
         elif menu==4: # Ver medicamentos que se están administrando
-            q = int(input("Ingrese la historia clínica de la mascota: "))
-            medicamento = servicio_hospitalario.verMedicamento(q) 
-            if medicamento != None: 
-                print("Los medicamentos suministrados son: ")
-                for m in medicamento:   
-                    print(f"\n- {m.verNombre()}")
+            while True:
+                    bushc = input("Ingrese la historia clínica de la mascota: ")
+                    bus = validarNumero(bushc)
+                    if bus:
+                        busqhc = int(bushc)
+                        break
+                    else:
+                        print("Debe ser un dato numérico (sin puntos ni letras)")   
+            if servicio_hospitalario.verificarExiste(historia):
+                tipo = tipe()
+                for i in servicio_hospitalario.verMedicamento(busqhc,tipo):
+                    print(i.sverNombre())
+                    print(i.verDosis())
             else:
                 print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
-
-        
         elif menu == 5: # Eliminar mascota
             q = int(input("Ingrese la historia clínica de la mascota: "))
             resultado_operacion = servicio_hospitalario.eliminarMascota(q) 
