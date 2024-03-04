@@ -58,7 +58,7 @@ class Mascota:
         self.__nombre= " "
         self.__historia = int
         self.__tipo=" "
-        self.__peso=" "
+        self.__peso= int
         self.__fecha_ingreso=" "
         self.__lista_medicamentos=[]
 
@@ -109,7 +109,9 @@ class sistemaV:
             return True
         else:
             return False
-        
+    def verNumeroMascotas(self):
+        return len(self.__lista_felinos) + len(self.__lista_caninos)
+#Todas estas dunciones dependen del tipo de animal  
     def ingresarMascota(self,tipo,historia,mas):
         if tipo == "Felino":
             self.verDicFel()[historia] = mas
@@ -137,14 +139,12 @@ class sistemaV:
         else:
             del self.verDicCan(self)[historia]
             return print(f"La mascota con {historia} fue eliminada")
-    
-    def verNumeroMascotas(self):
-        return len(self.__lista_felinos) + len(self.__lista_caninos)
 
 #Función que posee el menú
 def main():
     servicio_hospitalario = sistemaV()
     while True:
+        # Valido siempre si se ingresan datos numéricos.
         while True:
             menuv = (input('''\nIngrese una opción\n: 
                         1- Ingresar una mascota
@@ -162,7 +162,8 @@ def main():
             else:
                 print("Selecione una opción del menú")
                 continue
-        if menu == 1: # Ingresar una mascota 
+        if menu == 1: # Ingresa una mascota si no se halla en el sistema y hay menos de 10.
+                     # Se valida continuamente datos numéricos
             if servicio_hospitalario.verNumeroMascotas() >= 10:
                 print("No hay espacio ...") 
                 continue
@@ -221,7 +222,7 @@ def main():
                             medic.asignarDosis(dosis)
                             lista_med.append(medic)
                             break
-
+                # Creo el onjeto que contendrá toda la información solicitada
                 mas = Mascota()
                 mas.asignarNombre(nombre)
                 mas.asignarHistoria(historia)
@@ -265,6 +266,8 @@ def main():
                 tipo = tipe()
                 print(f"Los medicamentos de la mascota con historia {busqhc} son:")
                 for i in servicio_hospitalario.verMedicamento(busqhc,tipo):
+                    # Se evidencia el polimorfismo. La función verNombre es la misma para
+                    # las mascotas y los medicamentos
                     print(i.verNombre())
                     print(i.verDosis())
             else:
