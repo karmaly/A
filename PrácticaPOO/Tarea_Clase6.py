@@ -21,7 +21,7 @@ class Mascota:
         self.__peso=" "
         self.__fecha_ingreso=" "
         self.__lista_medicamentos=[]
-#Getters class Medicamento  
+#Getters class Mascota  
     def verNombre(self):
         return self.__nombre
     def verHistoria(self):
@@ -34,7 +34,7 @@ class Mascota:
         return self.__fecha_ingreso
     def verLista_Medicamentos(self):
         return self.__lista_medicamentos 
-#Setters class Medicamento
+#Setters class Mascota
     def asignarNombre(self,n):
         self.__nombre=n
     def asignarHistoria(self,nh):
@@ -46,33 +46,35 @@ class Mascota:
     def asignarFecha(self,f):
         self.__fecha_ingreso=f
     def asignarLista_Medicamentos(self,n):
-        self.__lista_medicamentos = n 
+        self.__lista_medicamentos=n 
     
 class sistemaV:
     def __init__(self):
         self.__lista_felinos = {}
         self.__lista_caninos = {}
     
-    def verificarExiste(self,historia):
-        for m in self.__lista_mascotas:
-            if historia == m.verHistoria():
-                return True
-        #solo luego de haber recorrido todo el ciclo se retorna False
-        return False
+    def verificarExiste(self, historia):
+        if historia in self.__lista_felinos or self.__lista_caninos:
+            return True
+        else:
+            return False
         
     def verNumeroMascotas(self):
-        return len(self.__lista_mascotas) 
+        return len(self.__lista_felinos) + len(self.__lista_caninos)
     
     def ingresarMascota(self,mascota):
-        self.__lista_mascotas.append(mascota) 
-   
-
+        if mascota == "Felino":
+            self.__lista_felinos.append(mascota)
+        else:
+            self.__lista_caninos.append(mascota)
+            
     def verFechaIngreso(self,historia):
         #busco la mascota y devuelvo el atributo solicitado
-        for masc in self.__lista_mascotas:
-            if historia == masc.verHistoria():
-                return masc.verFecha() 
-        return None
+        if self.verificarExiste(historia):
+            for clave in self.__lista_felinos:
+                
+
+            return None
 
     def verMedicamento(self,historia):
         #busco la mascota y devuelvo el atributo solicitado
