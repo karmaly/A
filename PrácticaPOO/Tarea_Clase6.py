@@ -1,19 +1,57 @@
 import datetime
+
+# Función para validar entero
+def validarNumero(numero):
+    try:
+        a = int(numero)
+        return True
+    except ValueError:
+        return False
+    
+# Función para validar Fecha
+def verificar_formato_fecha(fecha_str):
+    try:
+        fecha = datetime.strptime(fecha_str, '%d/%m/%Y')
+        return True, fecha
+    except ValueError:
+        return False, None
+    
+# Función para validar tipo  
+def tipe():
+    while True:
+        tipov = input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
+        t = validarNumero(tipov)
+        if t:
+            if tipov == 1:
+                tipo = "Felino"
+                return tipo
+            elif tipov == 2:
+                tipo = "Canino"
+                return tipo
+            else:
+                print("Elija una de las dos opciones")
+                continue
+        else: 
+            print("Ingrese 1 o 2 como indican las opciones disponibles")
+            continue
+    
+# Creación class Medicamento
 class Medicamento:
     def __init__(self):
         self.__nombre = "" 
         self.__dosis = int
-#Getters class Medicamento
+# Getters class Medicamento
     def verNombre(self):
         return self.__nombre 
     def verDosis(self):
         return self.__dosis 
-#Setters class Medicamento
+# Setters class Medicamento
     def asignarNombre(self,med):
         self.__nombre = med 
     def asignarDosis(self,med):
-        self.__dosis = med 
-        
+        self.__dosis = med
+
+# Creacción class Mascota
 class Mascota:
     def __init__(self):
         self.__nombre= " "
@@ -22,7 +60,7 @@ class Mascota:
         self.__peso=" "
         self.__fecha_ingreso=" "
         self.__lista_medicamentos=[]
-#Getters class Mascota  
+# Getters class Mascota  
     def verNombre(self):
         return self.__nombre
     def verHistoria(self):
@@ -35,7 +73,7 @@ class Mascota:
         return self.__fecha_ingreso
     def verLista_Medicamentos(self):
         return self.__lista_medicamentos 
-#Setters class Mascota
+# Setters class Mascota
     def asignarNombre(self,n):
         self.__nombre=n
     def asignarHistoria(self,nh):
@@ -49,40 +87,25 @@ class Mascota:
     def asignarLista_Medicamentos(self,n):
         self.__lista_medicamentos=n 
     
+# Creación class sistemaV
 class sistemaV:
     def __init__(self):
         self.__lista_felinos = {}
         self.__lista_caninos = {}
-#Getters class sistevaV
+
+# Getters class sistemaV
     def verDicFel(self):
         return self.__lista_felinos
     
     def verDicCan(self):
         return self.__lista_caninos
     
-#Funciones class Sistema
+# Funciones class sistemaV
     def verificarExiste(self, historia):
         if historia in self.__lista_felinos or self.__lista_caninos:
             return True
         else:
             return False
-    def tipo(self):
-        while True:
-            tipov = input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
-            t = validarNumero(tipov)
-            if t:
-                if tipov == 1:
-                    tipo = "Felino"
-                    return tipo
-                elif tipov == 2:
-                    tipo = "Canino"
-                    return tipo
-                else:
-                    print("Elija una de las dos opciones")
-                    continue
-            else: 
-                print("Ingrese 1 o 2 como indican las opciones disponibles")
-                continue
     def ingresarMascota(self,tipo,historia,mas):
         if tipo == "Felino":
             self.verDicFel()[historia] = mas
@@ -95,42 +118,33 @@ class sistemaV:
         if self.verificarExiste(historia):
             if tipo == "Felino":
                 return self.verDicFel(self)[historia].verFecha()
+            else:
+                return self.verDicCan()[historia].verFecha()
         else:
-            return self.verDicCan()[historia].verFecha()
+             return print(f"No se halla la historia {historia} en el sistema")
 
     def verMedicamento(self,historia,tipo):
         if self.verificarExiste(historia):
             if tipo == "Felino":
                 return self.verDicFel()[historia].verLista_Medicamentos()
+            else:
+                return self.verDicCan()[historia].verLista_Medicamentos()
         else:
-            return self.verDicCan()[historia].verLista_Medicamentos()
+            return print(f"No se halla la historia {historia} en el sistema")
     
     def eliminarMascota(self,historia,tipo):
         if self.verificarExiste(historia):
             if tipo == "Felino":
                 del self.verDicFel(self)[historia]
                 return print(f"La mascota con {historia} fue eliminada")
+            else:
+                del self.verDicCan(self)[historia]
+                return print(f"La mascota con {historia} fue eliminada")
         else:
-            del self.verDicCan(self)[historia]
-            return print(f"La mascota con {historia} fue eliminada")
+            return print(f"No se halla la historia {historia} en el sistema")
     
     def verNumeroMascotas(self):
         return len(self.__lista_felinos) + len(self.__lista_caninos)
-
-# Funcion para validar entero
-def validarNumero(numero):
-    try:
-        a = int(numero)
-        return True
-    except ValueError:
-        return False
-    
-def verificar_formato_fecha(fecha_str):
-    try:
-        fecha = datetime.strptime(fecha_str, '%d/%m/%Y')
-        return True, fecha
-    except ValueError:
-        return False, None
     
 def main():
     servicio_hospitalario = sistemaV()
@@ -144,7 +158,7 @@ def main():
                         \n5- Eliminar mascota 
                         \n6- Salir 
                         \nUsted ingresó la opción: ''' ))
-            opc = validarNumero(menu)
+            opc = validarNumero(menuv)
             if opc:
                 menu = int(menuv)
                 break
@@ -162,24 +176,12 @@ def main():
                     historia = int(historiav)
                     break
                 else:
-                   print("Debe ser un dato numérico (sin puntos ni letras)") 
+                   print("Debe ser un dato numérico (sin puntos ni letras)")
+                   continue
             if servicio_hospitalario.verificarExiste(historia) == False:
-                while True:
-                    tipov = input("Ingrese el tipo de mascota: 1. Felino o 2. Canino): ")
-                    t = validarNumero(tipov)
-                    if t:
-                        if tipov == 1:
-                            tipo = "Felino"
-                            break
-                        elif tipov == 2:
-                            tipo = "Canino"
-                            break
-                        else:
-                            print("Elija una de las dos opciones")
-                            continue
-                    else: 
-                        print("Ingrese 1 o 2 como indican las opciones disponibles")
-                        continue
+                mas = Mascota()
+                medic = Medicamento()
+                tipo = tipe()
                 nombre=input("Ingrese el nombre de la mascota: ")
                 while True:
                     pesov=input("Ingrese el peso de la mascota: ")
@@ -188,15 +190,8 @@ def main():
                         peso = int(pesov)
                         break
                     else:
-                        print("Debe ser un dato numérico (sin puntos ni letras)")   
-                while True:
-                    nmv=input("Ingrese cantidad de medicamentos: ")
-                    nu = validarNumero(nmv)
-                    if nu:
-                        nm = int(nmv)
-                        break
-                    else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")
+                        continue
                 while True: 
                     fecha_in = input("Por favor, ingresa la fecha en formato dd/mm/aaaa: ")
                     es_formato_valido, fecha = verificar_formato_fecha(fecha_in)
@@ -206,23 +201,31 @@ def main():
                     else:
                         print("La fecha ingresada no tiene el formato dd/mm/aaaa.")
                         continue
+                while True:
+                    nmv=input("Ingrese cantidad de medicamentos: ")
+                    nu = validarNumero(nmv)
+                    if nu:
+                        nm = int(nmv)
+                        break
+                    else:
+                        print("Debe ser un dato numérico (sin puntos ni letras)")
+                        continue
                 lista_med = []
-
                 for i in range(0,nm):
                     while True:
                         nombre_med = input("Ingrese el nombre del medicamento: ")
-                        if nombre_med in lista_med[i.verNombre()]:
-                            print("El medicamento ya se encuenta agregado")
-                            continue
+                        #if nombre_med in mas.verLista_Medicamentos()medic:
+                        for i in mas.verLista_Medicamentos():
+                            if nombre_med == i.verNombre():
+                                print("El medicamento ya se encuenta agregado")
+                                continue
                         else:
                             break
                     dosis = int(input("Ingrese la dosis: "))
-                    medicamento = Medicamento()
                     medicamento.asignarNombre(nombre_med)
                     medicamento.asignarDosis(dosis)
                     lista_med.append(medicamento)
 
-                mas = Mascota()
                 mas.asignarNombre(nombre)
                 mas.asignarHistoria(historia)
                 mas.asignarPeso(peso)
@@ -243,8 +246,8 @@ def main():
                         break
                     else:
                         print("Debe ser un dato numérico (sin puntos ni letras)")   
-            
-            fecha = servicio_hospitalario.verFechaIngreso(q)
+            tipo = tipo()
+            fecha = servicio_hospitalario.verFechaIngreso(busqhc,tipo)
             # if servicio_hospitalario.verificarExiste == True
             if fecha != None:
                 print("La fecha de ingreso de la mascota es: " + fecha)
