@@ -36,3 +36,22 @@ def NPaDF(a):
     return c
 
 print(NPaDF(copiam3Da2D))
+
+#6. Función que permite cargar un archivo .mat y .csv
+
+def cargaMatoCsV(a):
+    if a.endswith("csv"):
+        try:
+            return pd.read_csv(a)
+        except FileNotFoundError:
+            return print("Archivo no hallado")
+    elif a.endswith("mat"):
+        try:
+            return sio.loadmat(a)
+        except FileNotFoundError:
+            return print("Archivo no hallado")
+    else:
+        return print("Archivo se trata de un archivo .mat o .csv")
+
+print(cargaMatoCsV("Ejercicio.mat"))
+
