@@ -11,3 +11,12 @@ print(m4D.size)
 copiam4D = m4D[:,:,:,0].copy()
 print(copiam4D.shape)
 print(m4D.shape)
+
+#3. Muestra de los atributos de la matríz copiam4D
+
+print(f'''
+Los atributos propios de la matríz son:
+    Shape (Cantidad de ejes usados): {copiam4D.shape}
+    Dim (Dimensión): {copiam4D.ndim}
+    Size (Todos los datos que contiene): {copiam4D.size}
+    dtype (Tipo de dato que almacena): {copiam4D.dtype}''')
