@@ -51,7 +51,9 @@ def cargaMatoCsV(a):
         except FileNotFoundError:
             return print("Archivo no hallado")
     else:
-        return print("Archivo se trata de un archivo .mat o .csv")
+        return print("No se trata de un archivo .mat o .csv")
 
 print(cargaMatoCsV("Ejercicio.mat"))
+
+
 
