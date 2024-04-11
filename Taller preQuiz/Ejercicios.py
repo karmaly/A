@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib as plt
-import pandas as pt
+import pandas as pd
 import scipy.io as sio
 
 # 1. matríz aleatoria 4D de size 12000000
@@ -26,3 +26,13 @@ Los atributos propios de la matríz son:
 copiam3Da2D = copiam4Da3D.copy().reshape(400,300)
 print(copiam3Da2D.shape)
 print(copiam4Da3D.shape)
+
+#5. Función de matríz a dataframe
+
+def NPaDF(a):
+    cantf = a.shape[0]+1
+    cantc = a.shape[1]+1
+    c = pd.DataFrame(a, index = [np.arange(1,cantf)], columns = [np.arange(1,cantc)])
+    return c
+
+print(NPaDF(copiam3Da2D))
