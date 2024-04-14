@@ -19,7 +19,10 @@ Los atributos propios de la matríz son:
     Shape (Cantidad de ejes usados): {copiam4Da3D.shape}
     Dim (Dimensión): {copiam4Da3D.ndim}
     Size (Todos los datos que contiene): {copiam4Da3D.size}
-    dtype (Tipo de dato que almacena): {copiam4Da3D.dtype}''')
+    dtype (Tipo de dato que almacena): {copiam4Da3D.dtype}
+    nbytes (bytes que ocupa la matriz): {copiam4Da3D.nbytes}
+    itemsize (bytes que ocupa cada item o elemento de la matriz): {copiam4Da3D.itemsize}''')
+    
 
 #4. Pasar la matriz copiam4Da3D a 2D:
 
