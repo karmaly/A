@@ -32,5 +32,7 @@ print(v1, v2, v3, v4, v5)
 matriz = np.array(a)
 print(matriz)
 
-matriz1 = np.random.rand(5,5).astype(int) 
-print(matriz1)
+matriz2 = np.arange(25).reshape(5,5)
+print(matriz2)
+print(matriz2)
+

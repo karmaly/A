@@ -1,21 +1,41 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
-# 1. matríz aleatoria 4D de size 12000000
-m4D = np.random.rand(20,20,300,100)
-print(m4D.size)
 
-#2. Copia de la matríz anterior pero con 3D
-copiam4Da3D = m4D[:,:,:,0].copy()
-print(copiam4Da3D.shape)
-print(m4D.shape)
+values = np.arange(25)
+v1, v2, v3, v4, v5 = np.split(values, [5, 10, 15, 20])
+a = [v1, v2, v3, v4, v5]
+print(v1, v2, v3, v4, v5)
+matriz = np.array(a)
+print(matriz)
 
-#3. Muestra de los atributos de la matríz copiam4D
 
-print(f'''
-Los atributos propios de la matríz son:
-    Shape (Cantidad de ejes usados): {copiam4Da3D.shape}
-    Dim (Dimensión): {copiam4Da3D.ndim}
-    Size (Todos los datos que contiene): {copiam4Da3D.size}
-    dtype (Tipo de dato que almacena): {copiam4Da3D.dtype}
-    nbytes (bytes que ocupa la matriz): {copiam4Da3D.nbytes}
-    itemsize (bytes que ocupa cada item o elemento de la matriz): {copiam4Da3D.itemsize}''')
+def sumaeje(objeto_nparray, eje):
+    a = np.sum(objeto_nparray, axis=eje)
+    return a
+def restaeje(objeto_nparray, eje):
+    a = np.subtract.reduce(objeto_nparray, axis=eje)
+    return a
+def prodeje(objeto_nparray, eje):
+    a = np.prod(objeto_nparray, axis=eje)
+    return a
+def diveje(objeto_nparray, eje):
+    a = np.divide.reduce(objeto_nparray, axis=eje)
+    return a
+# def lognaturaleje(objeto_nparray, eje):
+#     a = np.log(objeto_nparray.copy()[eje], where=(objeto_nparray > 0))
+#     b = objeto_nparray[eje] = a
+#     return b
+def promedioeje(objeto_nparray, eje):
+    a = np.mean(objeto_nparray, axis=eje)
+    return a
+def desviacionestandareje(objeto_nparray, eje):
+    a = np.std(objeto_nparray, axis=eje)
+    return a
+
+print(f'{sumaeje(matriz, )} \n')
+print(f'{restaeje(matriz, )} \n')
+print(f'{diveje(matriz, )} \n')
+#print(f'{lognaturaleje(matriz, 0)} \n')
+print(f'{promedioeje(matriz, )} \n')
+print(f'{desviacionestandareje(matriz, )} \n')
