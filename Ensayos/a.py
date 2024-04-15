@@ -33,9 +33,9 @@ def desviacionestandareje(objeto_nparray, eje):
     a = np.std(objeto_nparray, axis=eje)
     return a
 
-print(f'{sumaeje(matriz, )} \n')
-print(f'{restaeje(matriz, )} \n')
-print(f'{diveje(matriz, )} \n')
+print(f'{sumaeje(matriz, 0)} \n')
+print(f'{restaeje(matriz, 0)} \n')
+print(f'{diveje(matriz, 0)} \n')
 #print(f'{lognaturaleje(matriz, 0)} \n')
-print(f'{promedioeje(matriz, )} \n')
-print(f'{desviacionestandareje(matriz, )} \n')
+print(f'{promedioeje(matriz, 0)} \n')
+print(f'{desviacionestandareje(matriz, 0)} \n')

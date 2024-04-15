@@ -58,8 +58,7 @@ def cargaMatoCsV(a):
 
 print(cargaMatoCsV("Ejercicio.mat"))
 
-# Funciones para operar a lo largo de un eje
-# Primer caso: sumar lo largo de un eje
+#7. Funciones para operar a lo largo de un eje
 def sumaeje(objeto_nparray, eje):
     a = np.sum(objeto_nparray, axis=eje)
     return a
