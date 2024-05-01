@@ -50,13 +50,14 @@ class sistema:
             return arreglo
         
     def arreglo(self, id_):
+        cont = 0
         catalogo = {}
         print('La información contenida en el archivo es la siguiente: ')
-        for clave, info_ in self.verdicmat()[id_].items():
-            for i in range(len(self.verdicmat()[id_])):
-                print(f'''Posición {i}: El diccionario es "{clave}" y su Clave es:
-                {info_}\n''')
-                catalogo[i] = info_
+        for clave, info_ in self.verdicmat()[id_].items(): 
+            print(f'''Posición {cont}: El diccionario es "{clave}" y su Clave es:
+            {info_}\n''')
+            catalogo[cont] = info_
+            cont = cont + 1 
         posicion = int(input('Eliga la posición del arreglo que desea usar: '))
         arreglo = catalogo[posicion]
         return arreglo
@@ -66,7 +67,8 @@ class sistema:
         for i in range(len(listacolumnas)):
             print(f'''Las columnas del archivo son:  
                   {listacolumnas[i]}''')
-        return print(listacolumnas)
+            
+        return print(listacolumnas)    
     def graficarcolumna(self, id_):
         tabla = self.verdiccsv()[id_]
         print('Esta es la visualización del archivo almacenado')
@@ -173,13 +175,6 @@ class graficarmat:
         self.__eje3.set_ylabel(nomy3)
         self.__eje3.legend()
     
-#     # def nuevacolumna(self, c1, c2, c3, c4, id_):
-#     #     suma = self.__diccsv[id_]["Nueva Columna"] =  self.__diccsv[id_][c1, c2, c3, c4].sum(axis=1,skipna=True) 
-#     #     media = suma.mean()
-#     #     moda = 1
-#     #     desv = suma.std()
-#     #     return print(f'La nueva colmuna tiene una media, moda y desviación de {media}, {moda} y {desv} respectivamente.')
-
 def menu():
     obj = sistema()
     while True:
