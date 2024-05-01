@@ -118,11 +118,11 @@ class graficarmat:
         shapev, shapeh = arreglo.shape
         print(f'Tiene disponible {shapev} canal(es) para graficar.')
         while True:
-            canal1 = int(input('Seleccione el canal que desea graficar en la desviación estándar: '))
-            if 0 <= canal1 <= shapev-1:
+            canal1 = int(input('Seleccione el canal que desea graficar en la desviación estándar: '))-1
+            if 0 <= canal1 <= shapev:
                 break
             else:
-                print(f'Ingrese un valor entre 0 y {shapev}: ')
+                print(f'Ingrese un valor entre 1 y {shapev}: ')
         x = np.random.randn(shapeh)
         leyenda = input('Ingrese leyenda: ')
         titulo = input('Ingrese título: ')
@@ -158,11 +158,11 @@ class graficarmat:
         shapev, shapeh = arreglo.shape
         print(f'Tiene disponible {shapev} canal(es) para graficar.')
         while True:
-            canal2 = int(input('Seleccione el canal que desea graficar con ruido: '))
+            canal2 = int(input('Seleccione el canal que desea graficar con ruido: '))-1
             if 0 <= canal2 <= shapev-1:
                 break
             else:
-                print(f'Ingrese un valor entre 0 y {shapev-1}')
+                print(f'Ingrese un valor entre 1 y {shapev}')
         shape = arreglo.shape
         x2 = np.random.randn(shapeh)
         arreglo2 = arreglo+np.random.random(shape)
