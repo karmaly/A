@@ -82,4 +82,18 @@ def desviacionestandareje(objeto_nparray, eje):
     a = np.std(objeto_nparray, axis=eje)
     return a
 
+# 10. Funciones para graficar histogramas, stems, barras, pies
+
+def creafig(operacionarreglo, eje , t, x, y, grafica):
+    fig = plt.fig()
+    axes = plt.axes()
+    for i in range(operacionarreglo.shape[eje]):
+        axes.plot(eje, objeto_nparray)
+    plt.title(t)
+    plt.xlabel(x)
+    plt.ylabel(y)
+    if grafica == "Histograma":
+        plt.hist()
+        plt.show()
+
 
