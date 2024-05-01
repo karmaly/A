@@ -10,8 +10,6 @@ class sistema:
         self.__diccsv = {}
         self.__dicmat = {}
 
-    # Se crean métodos propios para la clase
-
     # Me permite ver los diccionarios creados 
     def verdiccsv(self):
         return self.__diccsv
@@ -38,18 +36,8 @@ class sistema:
         else:
             return False
       
-    # Me permite redimensionar el arreglo y lo retorna para ser usado en la clase graficarmat.
-    def dimensionado(self, id_,):
-        dim = self.verdicmat()[id_].ndim
-        if dim == 2:
-            arreglo = self.verdicmat()[id_]
-            return arreglo
-        else:
-            size = self.verdicmat()[id_].size
-            arreglo = self.verdicmat()[id_].reshape(1,size)
-            return arreglo
-        
-    def arreglo(self, id_):
+    # Me permite escoger y redimensionar el arreglo y lo retorna para ser usado en la clase graficarmat.
+    def dimensionado(self, id_):
         cont = 0
         catalogo = {}
         print('La información contenida en el archivo es la siguiente: ')
@@ -60,8 +48,21 @@ class sistema:
             cont = cont + 1 
         posicion = int(input('Eliga la posición del arreglo que desea usar: '))
         arreglo = catalogo[posicion]
-        return arreglo
-      
+        dim = arreglo.ndim
+        if dim == 2:
+            return arreglo
+        else:
+            size = arreglo.size
+            if size % 2 == 0:
+                shape = int(size//2)
+                arreglo = arreglo.reshape(2,shape)
+                return arreglo
+            else: 
+                size = size - 1
+                shape = int(size//2)
+                arreglo = arreglo.reshape(2,shape+1)
+                return arreglo
+  
     def mostrarcolumnas(self, id_):
         listacolumnas = self.verdiccsv()[id_].columns
         for i in range(len(listacolumnas)):
@@ -118,10 +119,10 @@ class graficarmat:
         print(f'Tiene disponible {shapev} canal(es) para graficar.')
         while True:
             canal1 = int(input('Seleccione el canal que desea graficar en la desviación estándar: '))
-            if 0 < canal1 <= shapev:
+            if 0 <= canal1 <= shapev-1:
                 break
             else:
-                print(f'Ingrese un valor entre 1 y {shapev}: ')
+                print(f'Ingrese un valor entre 0 y {shapev}: ')
         x = np.random.randn(shapeh)
         leyenda = input('Ingrese leyenda: ')
         titulo = input('Ingrese título: ')
@@ -137,12 +138,12 @@ class graficarmat:
         sum = np.sum(arreglo, axis=0)
         shapeh = arreglo.shape[1]
         while True:
-            a = int(input(f'Ingrese un valor entre 1 y {shapeh} para el límite inferior del segmento que desea graficar: '))
-            b = int(input(f'Ingrese un valor entre 1 y {shapeh} para el límite superior del segmento que desea graficar: '))
-            if a < b and 0 < a <= shapeh and 0 < b <= shapeh:
+            a = int(input(f'Ingrese un valor entre 0 y {shapeh-1} para el límite inferior del segmento que desea graficar: '))
+            b = int(input(f'Ingrese un valor entre 0 y {shapeh-1} para el límite superior del segmento que desea graficar: '))
+            if a < b and 0 <= a <= shapeh-1 and 0 <= b <= shapeh-1:
                 break
             else:
-                print(f'Ingrese un valor entre 1 y {shapeh} para cada segmento. Recuerde que el primer número debe ser menor que el segundo')
+                print(f'Ingrese un valor entre 0 y {shapeh-1} para cada segmento. Recuerde que el primer número debe ser menor que el segundo')
         leyenda2 = input('Ingrese leyenda: ')
         titulo2 = input('Ingrese título: ')
         nomx2 = input('Ingrese etiqueta del eje x: ')
@@ -158,10 +159,10 @@ class graficarmat:
         print(f'Tiene disponible {shapev} canal(es) para graficar.')
         while True:
             canal2 = int(input('Seleccione el canal que desea graficar con ruido: '))
-            if 0 < canal2 <= shapev:
+            if 0 <= canal2 <= shapev-1:
                 break
             else:
-                print(f'Ingrese un valor entre 1 y {shapev}')
+                print(f'Ingrese un valor entre 0 y {shapev-1}')
         shape = arreglo.shape
         x2 = np.random.randn(shapeh)
         arreglo2 = arreglo+np.random.random(shape)
@@ -219,7 +220,7 @@ def menu():
             figura = graficarmat()
             id_ = int(input('Ingrese ID a graficar: '))
             if obj.verificarexistemat(id_):
-                arreglo = obj.arreglo(id_)
+                arreglo = obj.dimensionado(id_)
                 figura.graf1(arreglo)
                 figura.graf2(arreglo)
                 figura.graf3(arreglo)
