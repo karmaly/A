@@ -37,7 +37,7 @@ class sistema:
             return True
         else:
             return False
-        
+      
     # Me permite redimensionar el arreglo y lo retorna para ser usado en la clase graficarmat.
     def dimensionado(self, id_,):
         dim = self.verdicmat()[id_].ndim
@@ -61,6 +61,31 @@ class sistema:
         arreglo = catalogo[posicion]
         return arreglo
       
+    def mostrarcolumnas(self, id_):
+        listacolumnas = self.verdiccsv()[id_].columns
+        for i in range(len(listacolumnas)):
+            print(f'Las columnas del archivo son:  
+                  {listacolumnas[i]}')
+        return listacolumnas
+    
+    def graficarcolumna(self, id_):
+        tabla = self.verdiccsv()[id_]
+        print('Esta es la visualización del archivo almacenado')
+        while True:
+            print(tabla)
+            try:
+                columna = input('Indique el nombre de la columna que posse datos númerico que desea graficar: ')
+                print(f'''La tabla escogida es la siguiente: {tabla[columna]}''')
+                break
+            except KeyError:
+                print('El nombre debe ser exactemente el mismo.')
+        plt.scatter(tabla.index, tabla[columna])  # Utiliza los indices como valores para el eje x si tu DataFrame tiene un índice numérico
+        plt.xlabel('Índice') 
+        plt.ylabel('Valor de la columna')
+        plt.title('Scatter de una columna')
+        plt.grid(True)
+        plt.show() 
+
 # Clase que se encarga de graficar todo arreglo. Como se exige una ubicación en particular de las gráficas
 # se dispone de la figura de la siguiente manera: se crean 3 subplots que se ubicaran
 class graficarmat:
@@ -135,23 +160,12 @@ class graficarmat:
         self.__eje3.set_ylabel(nomy3)
         self.__eje3.legend()
     
-#     # def infocolumnas(self, id_):
-#     #     return self.__diccsv[id_].columns
-
-#     # def graficarscarter(self, id_, columna):
-#     #     self.__figura = plt.figure()
-#     #     self.__eje1 = self.__figura.add_subplot(1,1,1)
-#     #     plt.scatter(columna)
-    
 #     # def nuevacolumna(self, c1, c2, c3, c4, id_):
 #     #     suma = self.__diccsv[id_]["Nueva Columna"] =  self.__diccsv[id_][c1, c2, c3, c4].sum(axis=1,skipna=True) 
 #     #     media = suma.mean()
 #     #     moda = 1
 #     #     desv = suma.std()
 #     #     return print(f'La nueva colmuna tiene una media, moda y desviación de {media}, {moda} y {desv} respectivamente.')
-        
-
-    
 
 def menu():
     obj = sistema()
@@ -201,12 +215,17 @@ def menu():
                 figura.graf1(arreglo)
                 figura.graf2(arreglo)
                 figura.graf3(arreglo)
+                plt.grid(True)
                 plt.tight_layout() # Ajusta automáticamente los subplots para que no haya superposición
                 plt.show() # Mostrar la figura
             else:
                 print("El ID ingresado no se encuentra registrado")
         elif op == 4:
-            pass
+            id_ = int(input('Ingrese ID a graficar: '))
+            print(obj.mostrarcolumnas(id_))
+            obj.graficarcolumna(id_)
+
+
         elif op == 5:
             break
         else:
