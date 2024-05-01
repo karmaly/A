@@ -66,15 +66,14 @@ class sistema:
         for i in range(len(listacolumnas)):
             print(f'Las columnas del archivo son:  
                   {listacolumnas[i]}')
-        return listacolumnas
-    
+        return listacolumnas    
     def graficarcolumna(self, id_):
         tabla = self.verdiccsv()[id_]
         print('Esta es la visualización del archivo almacenado')
         while True:
             print(tabla)
             try:
-                columna = input('Indique el nombre de la columna que posse datos númerico que desea graficar: ')
+                columna = input('Indique el nombre de la columna que posee datos númerico que desea graficar: ')
                 print(f'''La tabla escogida es la siguiente: {tabla[columna]}''')
                 break
             except KeyError:
@@ -85,6 +84,21 @@ class sistema:
         plt.title('Scatter de una columna')
         plt.grid(True)
         plt.show() 
+    def crearcolumna(self, id_):
+        while True:
+            print(tabla)
+            try:
+                columna = input('Indique el nombre de la columna que posse datos númerico que desea graficar: ')
+                print(f'''La tabla escogida es la siguiente: {tabla[columna]}''')
+                break
+            except KeyError:
+                print('El nombre debe ser exactemente el mismo.')
+        suma = self.__diccsv[id_]["Nueva Columna"] =  self.__diccsv[id_][c1, c2, c3, c4].sum(axis=1,skipna=True) 
+        media = suma.mean()
+        moda = 1
+        desv = suma.std()
+        return print(f'La nueva colmuna tiene una media, moda y desviación de {media}, {moda} y {desv} respectivamente.')
+
 
 # Clase que se encarga de graficar todo arreglo. Como se exige una ubicación en particular de las gráficas
 # se dispone de la figura de la siguiente manera: se crean 3 subplots que se ubicaran
@@ -114,8 +128,7 @@ class graficarmat:
         self.__eje1.set_title(titulo)
         self.__eje1.set_xlabel(nomx)
         self.__eje1.set_ylabel(nomy)
-        self.__eje1.legend()
-    
+        self.__eje1.legend()   
     def graf2(self, arreglo):
         print('\nGRÁFICA 2')
         sum = np.sum(arreglo, axis=0)
@@ -135,8 +148,7 @@ class graficarmat:
         self.__eje2.set_title(titulo2)
         self.__eje2.set_xlabel(nomx2)
         self.__eje2.set_ylabel(nomy2)
-        self.__eje2.legend()
-    
+        self.__eje2.legend() 
     def graf3(self, arreglo):
         print('\nGRÁFICA 3')
         shapev, shapeh = arreglo.shape
@@ -224,6 +236,7 @@ def menu():
             id_ = int(input('Ingrese ID a graficar: '))
             print(obj.mostrarcolumnas(id_))
             obj.graficarcolumna(id_)
+            
 
 
         elif op == 5:
