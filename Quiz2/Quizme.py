@@ -64,9 +64,9 @@ class sistema:
     def mostrarcolumnas(self, id_):
         listacolumnas = self.verdiccsv()[id_].columns
         for i in range(len(listacolumnas)):
-            print(f'Las columnas del archivo son:  
-                  {listacolumnas[i]}')
-        return listacolumnas    
+            print(f'''Las columnas del archivo son:  
+                  {listacolumnas[i]}''')
+        return print(listacolumnas)
     def graficarcolumna(self, id_):
         tabla = self.verdiccsv()[id_]
         print('Esta es la visualización del archivo almacenado')
@@ -86,20 +86,21 @@ class sistema:
         plt.show() 
     def crearcolumna(self, id_):
         while True:
+            tabla = self.verdiccsv()[id_]
             print(tabla)
             try:
-                columna = input('Indique el nombre de la columna que posse datos númerico que desea graficar: ')
-                print(f'''La tabla escogida es la siguiente: {tabla[columna]}''')
-                break
+                c1 = input('Indique el nombre de la primera columna: ')
+                c2 = input('Indique el nombre de la segunda columna: ')
+                c3 = input('Indique el nombre de la tercera columna: ')
+                c4 = input('Indique el nombre de la cuarta columna: ')
+                self.verdiccsv[id_]['Nueva Columna'] =  self.verdiccsv[id_][c1, c2, c3, c4].sum(axis=1, skipna=True) 
+                media = tabla['Nueva Columna'].mean()
+                moda = tabla['Nueva Columna'].mode().iloc[0]  # En caso de que haya múltiples modas, esto selecciona la primera
+                desv = tabla['Nueva Columna'].std()
+                return print(f'La nueva colmuna tiene una media, moda y desviación de {media}, {moda} y {desv} respectivamente.')
             except KeyError:
                 print('El nombre debe ser exactemente el mismo.')
-        suma = self.__diccsv[id_]["Nueva Columna"] =  self.__diccsv[id_][c1, c2, c3, c4].sum(axis=1,skipna=True) 
-        media = suma.mean()
-        moda = 1
-        desv = suma.std()
-        return print(f'La nueva colmuna tiene una media, moda y desviación de {media}, {moda} y {desv} respectivamente.')
-
-
+        
 # Clase que se encarga de graficar todo arreglo. Como se exige una ubicación en particular de las gráficas
 # se dispone de la figura de la siguiente manera: se crean 3 subplots que se ubicaran
 class graficarmat:
@@ -193,7 +194,7 @@ def menu():
     >> '''))
         if op == 1:
             id_ = int(input('Ingrese ID: '))
-            if not obj.verificarexistecsv(id_):
+            if not obj.verificarexistemat(id_):
                 while True:
                     url = input('Ingrese URL del archivo: ')
                     try:
@@ -207,7 +208,7 @@ def menu():
                 print('El ID ya se encuentra registrado')
         elif op == 2:
             id_ = int(input('Ingrese ID: '))
-            if not obj.verificarexistemat(id_):
+            if not obj.verificarexistecsv(id_):
                 while True:
                     url = input('Ingrese URL del archivo: ')
                     try:
@@ -234,11 +235,9 @@ def menu():
                 print("El ID ingresado no se encuentra registrado")
         elif op == 4:
             id_ = int(input('Ingrese ID a graficar: '))
-            print(obj.mostrarcolumnas(id_))
+            obj.mostrarcolumnas(id_)
             obj.graficarcolumna(id_)
-            
-
-
+            obj.crearcolumna(id_)
         elif op == 5:
             break
         else:
