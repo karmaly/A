@@ -109,7 +109,7 @@ class sistema:
                 print('Deben ser columnas con datos numéricos')
         
 # Clase que se encarga de graficar todo arreglo. Como se exige una ubicación en particular de las gráficas
-# se dispone de la figura de la siguiente manera: se crean 3 subplots que se ubicaran
+# se dispone de la figura de la siguiente manera: se crean 3 subplots que se ubicarán
 class graficarmat:
     def __init__(self):
         self.__figura = plt.figure()
