@@ -62,29 +62,30 @@ class sistema:
                 shape = int(size//2)
                 arreglo = arreglo.reshape(2,shape+1)
                 return arreglo
-  
+
+    # Son funciones que me permiten manejar la opción de mostrar información relacionada con archivos .csv
     def mostrarcolumnas(self, id_):
         listacolumnas = self.verdiccsv()[id_].columns
+        print('Las columnas del archivo son:\n')
         for i in range(len(listacolumnas)):
-            print(f'''Las columnas del archivo son:  
-                  {listacolumnas[i]}''')
-            
-        return print(listacolumnas)    
+            print({listacolumnas[i]})  
     def graficarcolumna(self, id_):
         tabla = self.verdiccsv()[id_]
-        print('Esta es la visualización del archivo almacenado')
         while True:
+            print('Esta es la visualización del archivo almacenado')
             print(tabla)
             try:
-                columna = input('Indique el nombre de la columna que posee datos númerico que desea graficar: ')
-                print(f'''La tabla escogida es la siguiente: {tabla[columna]}''')
+                columna = input('Indique el nombre de la columna que posee datos númericos que desea graficar: ')
+                print(f'''La columna escogida es la siguiente: 
+                      
+                      {tabla[columna]}\n''')
                 break
             except KeyError:
                 print('El nombre debe ser exactemente el mismo.')
         plt.scatter(tabla.index, tabla[columna])  # Utiliza los indices como valores para el eje x si tu DataFrame tiene un índice numérico
         plt.xlabel('Índice') 
         plt.ylabel('Valor de la columna')
-        plt.title('Scatter de una columna')
+        plt.title(f'Scatter de la columna {columna}')
         plt.grid(True)
         plt.show() 
     def crearcolumna(self, id_):
@@ -92,17 +93,20 @@ class sistema:
             tabla = self.verdiccsv()[id_]
             print(tabla)
             try:
-                c1 = input('Indique el nombre de la primera columna: ')
-                c2 = input('Indique el nombre de la segunda columna: ')
-                c3 = input('Indique el nombre de la tercera columna: ')
-                c4 = input('Indique el nombre de la cuarta columna: ')
-                self.verdiccsv[id_]['Nueva Columna'] =  self.verdiccsv[id_][c1, c2, c3, c4].sum(axis=1, skipna=True) 
-                media = tabla['Nueva Columna'].mean()
-                moda = tabla['Nueva Columna'].mode().iloc[0]  # En caso de que haya múltiples modas, esto selecciona la primera
-                desv = tabla['Nueva Columna'].std()
+                print('\nCreacción de nueva columna. Indique los nombres de las columnas a sumar.')
+                c1 = input('Primera columna: ')
+                c2 = input('Segunda columna: ')
+                c3 = input('Tercera columna: ')
+                c4 = input('Cuarta columna: ')
+                self.verdiccsv()[id_]['Nueva_Columna'] =  self.verdiccsv()[id_][[c1, c2, c3, c4]].sum(axis=1, skipna=True) 
+                media = tabla['Nueva_Columna'].mean()
+                moda = tabla['Nueva_Columna'].mode().iloc[0]  # En caso de que haya múltiples modas, esto selecciona la primera
+                desv = tabla['Nueva_Columna'].std()
                 return print(f'La nueva colmuna tiene una media, moda y desviación de {media}, {moda} y {desv} respectivamente.')
             except KeyError:
-                print('El nombre debe ser exactemente el mismo.')
+                print('El nombre debe ser exactemente el mismo. Sin espacios antes o después.')
+            except TypeError:
+                print('Deben ser columnas con datos numéricos')
         
 # Clase que se encarga de graficar todo arreglo. Como se exige una ubicación en particular de las gráficas
 # se dispone de la figura de la siguiente manera: se crean 3 subplots que se ubicaran
@@ -132,7 +136,8 @@ class graficarmat:
         self.__eje1.set_title(titulo)
         self.__eje1.set_xlabel(nomx)
         self.__eje1.set_ylabel(nomy)
-        self.__eje1.legend()   
+        self.__eje1.legend()
+        self.__eje1.grid(True)
     def graf2(self, arreglo):
         print('\nGRÁFICA 2')
         sum = np.sum(arreglo, axis=0)
@@ -152,7 +157,8 @@ class graficarmat:
         self.__eje2.set_title(titulo2)
         self.__eje2.set_xlabel(nomx2)
         self.__eje2.set_ylabel(nomy2)
-        self.__eje2.legend() 
+        self.__eje2.legend()
+        self.__eje2.grid(True)
     def graf3(self, arreglo):
         print('\nGRÁFICA 3')
         shapev, shapeh = arreglo.shape
@@ -175,69 +181,4 @@ class graficarmat:
         self.__eje3.set_xlabel(nomx3)
         self.__eje3.set_ylabel(nomy3)
         self.__eje3.legend()
-    
-def menu():
-    obj = sistema()
-    while True:
-        op = int(input('''Seleccione una de las siguientes opciones:
-                       
-    1. Ingrese un archivo MAT
-    2. Ingrese un archivo CSV
-    3. Grafique una señal
-    4. Mostrar información
-    5. Salir
-                       
-    >> '''))
-        if op == 1:
-            id_ = int(input('Ingrese ID: '))
-            if not obj.verificarexistemat(id_):
-                while True:
-                    url = input('Ingrese URL del archivo: ')
-                    try:
-                        dic = sio.loadmat(url)
-                        break
-                    except FileNotFoundError:
-                        print('Archivo no hallado')
-                        continue
-                obj.agregaramat(id_, dic)
-            else:
-                print('El ID ya se encuentra registrado')
-        elif op == 2:
-            id_ = int(input('Ingrese ID: '))
-            if not obj.verificarexistecsv(id_):
-                while True:
-                    url = input('Ingrese URL del archivo: ')
-                    try:
-                        tabla = pd.read_csv(url)
-                        break
-                    except FileNotFoundError:
-                        print("Archivo no hallado")
-                        continue
-                obj.agregaracsv(id_, tabla)
-            else:
-                print('El ID ya se encuentra registrado')
-        elif op == 3:
-            figura = graficarmat()
-            id_ = int(input('Ingrese ID a graficar: '))
-            if obj.verificarexistemat(id_):
-                arreglo = obj.dimensionado(id_)
-                figura.graf1(arreglo)
-                figura.graf2(arreglo)
-                figura.graf3(arreglo)
-                plt.grid(True)
-                plt.tight_layout() # Ajusta automáticamente los subplots para que no haya superposición
-                plt.show() # Mostrar la figura
-            else:
-                print("El ID ingresado no se encuentra registrado")
-        elif op == 4:
-            id_ = int(input('Ingrese ID a graficar: '))
-            obj.mostrarcolumnas(id_)
-            obj.graficarcolumna(id_)
-            obj.crearcolumna(id_)
-        elif op == 5:
-            break
-        else:
-            print('Opción existente en el menú')
-
-if __name__ == '__main__':
-    menu()
+        self.__eje3.grid(True)
