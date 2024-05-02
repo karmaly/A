@@ -153,7 +153,7 @@ class graficarmat:
         titulo2 = input('Ingrese título: ')
         nomx2 = input('Ingrese etiqueta del eje x: ')
         nomy2 = input('Ingrese etiqueta del eje y: ')
-        self.__eje2.plot(sum[a:b], color='red', label=leyenda2)
+        self.__eje2.plot(sum[:,a:b], color='red', label=leyenda2)
         self.__eje2.set_title(titulo2)
         self.__eje2.set_xlabel(nomx2)
         self.__eje2.set_ylabel(nomy2)
