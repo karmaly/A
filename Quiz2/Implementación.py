@@ -1,6 +1,7 @@
 # Importo Clases con todas sus funciones
 from Clases import *
 
+# Creo método para ejecutar funciones de cada una de las clases
 def menu():
     obj = sistema()
     while True:
