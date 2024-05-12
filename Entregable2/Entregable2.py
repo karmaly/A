@@ -1,5 +1,5 @@
 # Importo fuciones para:
-   
+
 import numpy as np # manejar matrices
 import matplotlib.pylab as plt # graficar
 
