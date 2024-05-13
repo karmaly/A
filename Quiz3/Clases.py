@@ -24,11 +24,13 @@ class Paciente:
         self.__edad = ''
         self.__dicom = []
 
+#Manipulación del atributo tipo lista 
     def set_dicom(self,d):
         self.__dicom = d
     def agregardicom(self, a):
         self.set_dicom.append(a)
 
+#Creación de los atributos del paciente
     def paciente_creado_desde_dicom(self, nombredicom):
         data = 'Entregable2/archivosDCM'
         archivos_dcm = [archivo for archivo in os.listdir(nombredicom) if archivo.endswith('.dcm')]
@@ -54,11 +56,11 @@ class Paciente:
     def get_dicom(self):
         return self.__dicom
 
+#obtención de arreglos de cada archivo dicom guardado en el paciente.
     def arreglos(self):
         imagenes_dcm = []
         lista = self.set_dicom()
         for archivo in lista:
             imagenes_dcm.append(archivo.pixel_array)
         return imagenes_dcm
-    
     
