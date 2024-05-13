@@ -3,7 +3,7 @@
 import numpy as np # manejar matrices
 import matplotlib.pylab as plt # graficar
 
-import os
+import os #manipulación de urls
 
 import cv2 #manipular imagenes
 
@@ -33,20 +33,20 @@ ima=cv2.imread('Entregable2\Imagencel.jpg')
 #se binariza la imagen tomando como umbral el 50, haciendo a 0 todos los valores por debajo del umbral.
 imag=cv2.cvtColor(ima, cv2.COLOR_BGR2GRAY)
 umbral, imgB=cv2.threshold(imag,50,255,cv2.THRESH_BINARY)
-#grafica(imag, imgB, 'Escala de grises')
+grafica(imag, imgB, 'Escala de grises')
 
 #Transormaciones morfologicas
 #Se crea el kernel o filtro a aplicar a la imagen binarizada
 kernelc = cv2.getStructuringElement(cv2.MORPH_CROSS,(10,10))
 
 # Etiquetado. Se hacen las transformaciones morfológicas necesarias para poder realizar el conteo de elemnetos.
-imaOp=cv2.morphologyEx(imgB, cv2.MORPH_OPEN, kernelc, iterations = 1)
-imaOO=cv2.morphologyEx(imaOp, cv2.MORPH_OPEN, kernelc, iterations = 3)
-imaCl=cv2.morphologyEx(imaOO, cv2.MORPH_CLOSE, kernelc, iterations = 1)
+imaOp = cv2.morphologyEx(imgB, cv2.MORPH_OPEN, kernelc, iterations = 1)
+imaOO = cv2.morphologyEx(imaOp, cv2.MORPH_OPEN, kernelc, iterations = 3)
+imaCl = cv2.morphologyEx(imaOO, cv2.MORPH_CLOSE, kernelc, iterations = 1)
 imaDil = cv2.dilate(imaCl,kernelc,iterations = 1)
-#grafica(imaOp,imaDil, 'Conteo')
+grafica(imaOp, imaDil, 'Conteo')
 elem,mask=cv2.connectedComponents(imaDil)
-print(f'Se tinen un total de {elem} células.')
+print(f'Se tienen un total de {elem} células.')
 
 # Guardar la imagen en formato RGB
 img_rgb_pil = Image.fromarray(imaDil)
